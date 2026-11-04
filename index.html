@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Premium Web Arcade</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --accent-color: #4caf50;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Frame Wrapper */
+        .arcade-container {
+            position: relative;
+            width: 90vw;
+            max-width: 1024px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--container-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 2px solid #333;
+        }
+
+        /* The Game Frame */
+        .arcade-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Better Control Bar below the game */
+        .control-bar {
+            width: 90vw;
+            max-width: 1024px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding: 10px 0;
+        }
+
+        .btn-fullscreen {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-fullscreen:hover {
+            background-color: #43a047;
+            transform: translateY(-1px);
+        }
+
+        .btn-fullscreen:active {
+            transform: translateY(1px);
+        }
+
+        .status-text {
+            font-size: 13px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Custom Web Client</h1>
+    </div>
+
+    <!-- The Game Viewport -->
+    <div class="arcade-container" id="gameContainer">
+        <!-- Replace the src URL below with your preferred 1.20 offline instance mirror URL if needed -->
+        <iframe 
+            class="arcade-frame" 
+            src="https://github.io" 
+            allow="fullscreen; autoplay; gamepad; keyboard"
+            id="gameFrame">
+        </iframe>
+    </div>
+
+    <!-- UI Controls -->
+    <div class="control-bar">
+        <span class="status-text">🎮 Press F11 or click Fullscreen for immersive play</span>
+        <button class="btn-fullscreen" onclick="goFullscreen()">📳 Fullscreen Mode</button>
+    </div>
+
+    <script>
+        function goFullscreen() {
+            const container = document.getElementById('gameContainer');
+            
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.mozRequestFullScreen) { /* Firefox */
+                    container.mozRequestFullScreen();
+                } else if (container.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) { /* IE/Edge */
+                    container.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
